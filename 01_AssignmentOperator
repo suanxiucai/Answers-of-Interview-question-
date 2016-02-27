@@ -5,8 +5,6 @@
 4：考虑安全异常性。是否会将m_Data所指的内存释放掉，但是又没能成功的申请新内存。
 《剑指offer》27  《c++ primer plus》437 《effictive c++》52
 */
-#include <iostream>
-using namespace std;
 
 class CMyString
 {
