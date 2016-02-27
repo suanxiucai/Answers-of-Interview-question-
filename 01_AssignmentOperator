@@ -1,0 +1,41 @@
+/*重载赋值构造函数
+1:返回值需要是类的引用，以便连续赋值。
+2：函数参数需要是const类型，并且是引用。
+3：需要考虑是否为自己给自己赋值。如果是自己给自己赋值，那么有可能造成内存泄露。
+4：考虑安全异常性。是否会将m_Data所指的内存释放掉，但是又没能成功的申请新内存。
+《剑指offer》27  《c++ primer plus》437 《effictive c++》52
+*/
+#include <iostream>
+using namespace std;
+
+class CMyString
+{
+private: 
+	char *m_Data;
+public:
+	CMyString(char *pData = nullptr);
+	CMyString(const CMyString &str);
+	CMyString & operator=(const CMyString & str);
+	~CMyString();
+};
+
+CMyString & CMyString::operator=(const CMyString & str)
+{
+	if (this != &str)
+	{
+		char *Temp = m_Data;
+		m_Data = str.m_Data;
+		delete[] Temp;
+	}
+		return *this;
+
+	//或者----------------------
+		/*if (this != &str) //m_Data原来指向的内存，现在被Temp.mData指向，该内存会随着函数的结束，调用析构函数释放掉。
+		{
+			CMyString Temp(str);
+			char *pTemp = Temp.m_Data;
+			Temp.m_Data = m_Data;
+			m_Data = pTemp;
+		}
+		return *this;*/
+}
