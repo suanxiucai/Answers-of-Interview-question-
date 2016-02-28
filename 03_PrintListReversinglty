@@ -1,0 +1,29 @@
+/**
+*  struct ListNode {
+*        int val;
+*        struct ListNode *next;
+*        ListNode(int x) :
+*              val(x), next(NULL) {
+*        }
+*  };
+*/
+class Solution {
+public:
+    vector<int> printListFromTailToHead(struct ListNode* head) {
+        vector<int> str;
+        stack<ListNode> nodes;//将链表中的元素全都弹出到栈中，实现逆序
+        ListNode *ptr=head;
+        while(ptr!=NULL)
+            {
+            nodes.push(*ptr);
+            ptr=ptr->next;
+        }
+        while(!nodes.empty())
+            {
+            ListNode temp=nodes.top();//用到了top pop的方法
+            str.push_back(temp.val);//用push_back压入
+            nodes.pop();
+        }
+        return str;
+    }
+};
