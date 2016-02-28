@@ -1,0 +1,25 @@
+bool Find(int* matrix, int rows, int columns, int number)
+{
+	bool found = false;
+
+	if (matrix != NULL && rows > 0 && columns > 0)//注意对输入参数进行判断
+	{
+		int row = 0;
+		int column = columns - 1;
+		while (row < rows && column >= 0)
+		{
+			if (matrix[row * columns + column] == number)//从矩阵的右上角开始
+			{
+				found = true;
+				cout << "The number " << number << " in the " << row + 1 << "th row " << column + 1 << "th cloumn" << endl;
+				break;
+			}
+			else if (matrix[row * columns + column] > number)//如果右上角的元素大了，则删掉该列
+				--column;
+			else
+				++row;//如果右上角的元素小了，则删掉该行
+		}
+	}
+
+	return found;
+}
