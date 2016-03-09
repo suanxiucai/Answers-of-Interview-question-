@@ -1,0 +1,24 @@
+void AddNewNodeToTailOfList(ListNode **pHead, int value)
+{
+	if (value == NULL)//如果指针为空，那么就可以将value作为第一个元素
+		return;
+	ListNode *pNew = new ListNode;
+	pNew->m_pNext = NULL;
+	pNew->m_nValue = value;
+
+	if (*pHead == NULL)
+	{
+		*pHead = pNew;
+	}
+	else
+	{
+		ListNode *ptr = *pHead;
+		while (ptr->m_pNext!=NULL)
+		{
+			ptr = ptr->m_pNext;
+		}
+
+		ptr->m_pNext = pNew;
+	}
+	
+}
