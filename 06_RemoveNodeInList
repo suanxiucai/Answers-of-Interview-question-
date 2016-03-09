@@ -1,0 +1,35 @@
+struct ListNode
+{
+	int  m_nValue;
+	ListNode *m_pNext;
+};
+
+void RemoveNode(ListNode **pHead, int value)
+{
+	if (*pHead == NULL || value==NULL)
+		return;
+	ListNode *ptr = NULL;
+	ListNode *ToBeDelet = NULL;
+
+	if ((*pHead)->m_nValue == value)
+	{
+		ToBeDelet = *pHead;
+		*pHead = (*pHead)->m_pNext;
+	}
+	else
+	{
+		ptr = *pHead;
+		while (ptr->m_pNext!=NULL && ptr->m_pNext->m_nValue != value)
+			ptr = ptr->m_pNext;
+		if (ptr->m_pNext != NULL && ptr->m_pNext->m_nValue == value)
+		{
+			ToBeDelet = ptr->m_pNext;
+			ptr->m_pNext = ToBeDelet->m_pNext;
+		}
+	}
+	if (!ToBeDelet)
+	{
+		delete ToBeDelet;
+		ToBeDelet = NULL;
+	}
+}
