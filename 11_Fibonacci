@@ -1,0 +1,25 @@
+//大家都知道斐波那契数列，现在要求输入一个整数n，请你输出斐波那契数列的第n项。
+class Solution {
+public:
+	int Fibonacci(int n) {
+		if (n < 0)
+			return 0;
+		else if (n == 0)
+			return 0;
+		else if (n == 1)
+			return 1;
+
+		int fibonacciNMinusOne = 1;
+		int fibonacciNMinusTwo = 0;
+		int fibonacciN = 0;
+
+		if (n>1) {
+			for (int i = 2; i <= n; i++) {
+				fibonacciN = fibonacciNMinusOne + fibonacciNMinusTwo;
+				fibonacciNMinusTwo = fibonacciNMinusOne;
+				fibonacciNMinusOne = fibonacciN;
+			}
+		}
+		return fibonacciN;
+	}
+};
