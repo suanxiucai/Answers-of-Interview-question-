@@ -1,0 +1,44 @@
+
+//题目描述
+//
+//把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。输入一个非递减序列的一个旋转，输出旋转数组的最小元素。
+//例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。
+class Solution {
+public:
+	int minNumberInRotateArray(vector<int> rotateArray) {
+		if (rotateArray.empty())
+			return 0;
+		int length = rotateArray.size();
+		int index1 = 0;
+		int index2 = length - 1;
+		int indexmid = 0;
+		while (rotateArray[index1] >= rotateArray[index2]) {//注意while的条件
+			if (index2 - index1 == 1) {//注意跳出的条件
+				indexmid = index2;
+				break;
+			}
+			indexmid = (index1 + index2) / 2;
+
+			if (rotateArray[index1] == rotateArray[indexmid] && rotateArray[index2] == rotateArray[indexmid]) {//特殊情况，一定要考虑
+				for (int i=0; i < length; i++) {
+					if (rotateArray[i]<rotateArray[indexmid]) {
+						indexmid = i;	
+					}
+				}
+                return rotateArray[indexmid];
+			}
+
+			else if (rotateArray[index1] <= rotateArray[indexmid]) {
+				index1 = indexmid;
+			}
+
+			else if (rotateArray[index2] >= rotateArray[indexmid])
+			{
+				index2 = indexmid;
+			}
+		}
+		return rotateArray[indexmid];
+
+	}
+};
+ 
