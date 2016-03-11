@@ -1,0 +1,14 @@
+//输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示。
+//此题考查的是位运算，比较巧妙，注意！
+
+class Solution {
+public:
+	int  NumberOf1(int n) {
+		int count = 0;
+		while (n) {
+			++count;
+			n = (n - 1)&n;
+		}
+		return count;
+	}
+};
