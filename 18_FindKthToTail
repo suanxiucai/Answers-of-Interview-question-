@@ -1,0 +1,36 @@
+//输入一个链表，输出该链表中倒数第k个结点。
+//1:考虑用两个指针做，一个先走k步
+//2：注意考虑k《0  k比链表长度还长的情况
+
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* FindKthToTail(ListNode* pListHead, unsigned int k) {
+        if (pListHead == NULL || k <= 0)
+			return NULL;
+		ListNode *ptr1 = pListHead;
+		ListNode *ptr2 = pListHead;
+		int index = 1;
+		while (ptr1->next != NULL && index < k) {
+			ptr1 = ptr1->next;
+			index++;
+		}
+		if (index < k)
+			return NULL;
+		else if (index == k) {
+		  while (ptr1->next != NULL) {
+			   ptr1 = ptr1->next;
+			   ptr2 = ptr2->next;
+		}
+	  }
+		return ptr2;
+    
+    }
+};
