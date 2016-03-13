@@ -1,0 +1,37 @@
+//题目描述
+
+//输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则
+//利用递归的思想
+/*
+struct ListNode {
+	int val;
+	struct ListNode *next;
+	ListNode(int x) :
+			val(x), next(NULL) {
+	}
+};*/
+class Solution {
+public:
+    ListNode* Merge(ListNode* pHead1, ListNode* pHead2)
+    {
+  if (pHead1 == NULL && pHead2 == NULL)
+		return NULL;
+	else if (pHead1 == NULL)
+		return pHead2;
+	else if (pHead2 == NULL)
+		return pHead1;
+	ListNode *newHead = NULL;
+	if (pHead1->val <= pHead2->val) {
+		newHead = pHead1;
+		pHead1 = pHead1->next;
+		newHead->next = Merge(pHead1, pHead2);//注意这句话放的位置
+	}
+	else {
+		newHead = pHead2;
+		pHead2=pHead2->next;
+		newHead->next = Merge(pHead1, pHead2);//注意这句话放的位置
+	}
+	
+	return newHead;
+    }
+};
