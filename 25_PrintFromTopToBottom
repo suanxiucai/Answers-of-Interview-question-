@@ -1,0 +1,42 @@
+//题目描述
+//
+//从上往下打印出二叉树的每个节点，同层节点从左至右打印。
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    vector<int> PrintFromTopToBottom(TreeNode *root) {
+     TreeNode*que_begin;
+    vector<int>vec;
+    queue<TreeNode*>que;
+     
+    que.push(root);
+    if(root==NULL)
+    {
+        return vec;
+    }
+    else
+    {
+        while(!que.empty())
+        {
+                que_begin=que.front();
+             
+             
+                vec.push_back(que_begin->val);
+                if(que_begin->left!=NULL)
+                que.push(que_begin->left);
+                if(que_begin->right!=NULL)
+                que.push(que_begin->right);
+                que.pop();           
+        }
+        return vec;
+    }
+    }
+};
