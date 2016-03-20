@@ -1,0 +1,31 @@
+//题目描述
+//
+//输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+class Solution {
+public:
+    bool VerifySquenceOfBST(vector<int> sequence) {
+        if (sequence.empty())
+			return false;
+
+		int last = *(sequence.end()-1);
+		vector<int>::iterator i = sequence.begin();
+		while (*i < last)
+			i++;
+		for (auto j = i; j != sequence.end()-1; j++) {//如果右子数中有数字比根小，则不是BST，注意此处是sequence.end()-1，因为最后一个根节点已经被取出来了
+			if (*j <= last) {
+				return false;
+			}
+		}
+
+		vector<int>sequence_left(sequence.begin(), i);
+		vector<int>sequence_right(i, sequence.end()-1);//注意此处是sequence.end()-1
+        bool left=true;
+        bool right=true;
+        if(!sequence_left.empty())
+		   bool left = VerifySquenceOfBST(sequence_left);
+        if(!sequence_right.empty())
+		   bool right = VerifySquenceOfBST(sequence_right);
+		return (left && right);
+
+    }
+};
