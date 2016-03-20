@@ -1,0 +1,43 @@
+//题目描述
+
+//输入一颗二叉树和一个整数，打印出二叉树中结点值的和为输入整数的所有路径。
+//路径定义为从树的根结点开始往下一直到叶结点所经过的结点形成一条路径。
+/*
+struct TreeNode {
+	int val;
+	struct TreeNode *left;
+	struct TreeNode *right;
+	TreeNode(int x) :
+			val(x), left(NULL), right(NULL) {
+	}
+};*/
+class Solution {
+public:
+    vector<vector<int> > FindPath(TreeNode* root,int expectNumber) {
+		vector<vector<int>>path={};
+		vector<int>littlepath={};
+		int sum=0;
+		
+		if(root==NULL)
+			return path;
+		findpath(root,expectNumber,sum,littlepath,path);
+		return path;
+
+    }
+	
+	void findpath(TreeNode* root ,int expectNumber,int sum ,vector<int>&littlepath,vector<vector<int>>&path){
+		sum+=root->val;
+		littlepath.push_back(root->val);
+		
+		bool isleaf=(root->left==NULL && root->right==NULL);
+		if(sum==expectNumber && isleaf)
+			path.push_back(littlepath);
+		
+	    if(root->left!=NULL)
+			findpath(root->left,expectNumber,sum,littlepath,path);
+		if(root->right!=NULL)
+			findpath(root->right,expectNumber,sum,littlepath,path);
+		
+		littlepath.pop_back();
+	}
+};
