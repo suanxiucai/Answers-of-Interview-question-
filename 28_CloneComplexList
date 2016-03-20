@@ -1,0 +1,55 @@
+//题目描述
+
+//输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点）。
+/*
+struct RandomListNode {
+    int label;
+    struct RandomListNode *next, *random;
+    RandomListNode(int x) :
+            label(x), next(NULL), random(NULL) {
+    }
+};
+*/
+class Solution {
+public:
+    RandomListNode* Clone(RandomListNode* pHead)
+    {
+      
+		if(pHead==NULL)
+			return NULL;
+		RandomListNode *ptr=pHead;
+		
+		while(ptr!=NULL){
+			
+			RandomListNode *ptrForTemp=new RandomListNode(ptr->label);
+			ptrForTemp->next=ptr->next;
+			ptr->next=ptrForTemp;
+			ptr=ptrForTemp->next;
+		}
+	
+
+	RandomListNode *ptr1=pHead;
+
+	while(ptr1!=NULL){
+		RandomListNode *Temp=ptr1->next;
+		if(ptr1->random)
+			Temp->random=ptr1->random->next;
+		ptr1=Temp->next;
+	}
+
+
+
+	RandomListNode *ptr2=pHead;
+	RandomListNode *CloneHead=ptr2->next;
+	RandomListNode *Temp=ptr2->next;
+	while(Temp->next!=NULL){
+		ptr2->next=Temp->next;
+		ptr2=ptr2->next;
+		Temp->next=ptr2->next;
+		Temp=Temp->next;
+		
+	}
+	ptr2->next=NULL;//原始链表的尾结点指针指向空
+    return CloneHead;
+    }
+};
